@@ -1,54 +1,92 @@
-# Student Monitoring & Keylogger Dashboard
+# 🛡️ CogniType: Advanced Monitoring & Analytics Dashboard
 
-This project is a comprehensive monitoring dashboard built using Python and Flask. It securely logs keystrokes, captures screenshots, and snaps images upon detecting flagged words. It implements multiple layers of security and provides a web interface to visualize and manage logged data.
+**CogniType** is a sophisticated monitoring and security auditing system designed for educational and administrative environments. It combines stealthy background data collection with a powerful Flask-based web dashboard to provide real-time insights into user activity and potential security breaches.
 
-## Features
+---
 
-- **Encrypted Keylogging**: Keystrokes are captured and securely encrypted before being saved (`cryptography` library).
-- **Flagged Word Detection**: Automatically detects specific flagged words being typed (e.g., games, youtube, chatgpt) and triggers an image capture.
-- **Screenshot & Image Capture**: Periodically captures screenshots and clicks webcam images during flagged events.
-- **Role-based Web Dashboard**: Web interface for viewing logs, generated bar graphs (using `matplotlib`), and captured images. Includes role-based authentication (`Teacher`, `Principal`).
-- **Data Visualization**: Graphs displaying the split between random words, random letters, and flagged words.
+## ✨ Core Features
 
-## Prerequisites
+*   **🔒 Encrypted Data Logging**: All captured keystrokes are encrypted on-the-fly using AES (via the `cryptography` library), ensuring data remains secure even if the logs are accessed by unauthorized parties.
+*   **⚠️ Intelligent Flagged Word Detection**: Monitors input for specific keywords (e.g., *games*, *chatgpt*, *unauthorized sites*) and automatically triggers specialized events.
+*   **📸 Dynamic Visual Monitoring**:
+    *   **Flagged Snapshots**: Automatically captures webcam images when suspicious keywords are detected.
+    *   **Periodic Screenshots**: Regularly records screen activity for a comprehensive audit trail.
+*   **📊 Insightful Analytics Dashboard**:
+    *   **Role-Based Access Control**: Secure logins for **Teachers** and **Principals** with unique verification codes.
+    *   **Data Visualization**: Integrated graphs (powered by `Matplotlib`) analyze the ratio of productive vs. flagged activity.
+*   **📂 Structured Storage**: Efficiently manages encrypted logs, captured images, and metadata in a structured local repository.
 
-Python 3.x is required. Install the following key dependencies before running:
+---
+
+## 🛠️ Technology Stack
+
+*   **Backend**: Python, Flask
+*   **Security**: Cryptography (Fernet symmetric encryption)
+*   **Data Processing**: Pynput (Keystroke Monitoring), OpenCV (Image Capture), Pillow (Image Handling)
+*   **Visualization**: Matplotlib
+*   **Frontend**: HTML5, Vanilla CSS3, JavaScript
+
+---
+
+## 🚀 Quick Start
+
+### 1. Prerequisites
+Ensure you have Python 3.8+ installed. It is highly recommended to use a virtual environment.
+
+### 2. Installation
+Clone the repository and install the required dependencies:
 
 ```bash
-pip install flask cryptography pillow pynput matplotlib requests
+# Clone the repository
+git clone https://github.com/SIVA-2010/CogniType.git
+cd CogniType
+
+# Create and activate virtual environment
+python -m venv venv
+source venv/Scripts/activate  # On Windows
+
+# Install dependencies
+pip install flask cryptography pillow pynput matplotlib requests opencv-python
 ```
-*(Note: You may also need `opencv-python` depending on the webcam capture logic).*
 
-## Folder Structure
+### 3. Running the Application
+Start the monitoring service and web server:
 
-- `backend/`: Contains the core application files.
-  - `app.py`: The main Flask server and entry point.
-  - `keystroke_logger.py`: Background thread for capturing keystrokes and detecting flagged words.
-  - `encryption.py`: Uses Fernet symmetric encryption to securely store logs and images.
-  - `visualization.py`: Generates bar graphs based on log analysis.
-  - `screenshot.py` & `image_capture.py`: Background tasks for visual monitoring.
-- `frontend/`: Contains `templates/` (HTML) and `static/` (CSS/JS) for the web interface.
-- `keylogger/`: Automatically created to store generated logs, keys, encrypted screenshots, and graphs.
+```bash
+cd backend
+python app.py
+```
+Visit `http://localhost:5000` to access the dashboard.
 
-## How to Run
+---
 
-1. Navigate to the project root directory.
-2. Ensure you have the required dependencies installed (ideally in a `venv` virtual environment).
-3. Start the application:
-   ```bash
-   cd backend
-   python app.py
-   ```
-4. Access the web dashboard by navigating to `http://localhost:5000` in your web browser.
+## 🔐 Administrative Access
 
-## Authentication Details
+| Role | Username | Password | Secret Code |
+| :--- | :--- | :--- | :--- |
+| **Principal** | `admin` | `password` | `Principal123` |
+| **Teacher** | `admin` | `password` | `Teacher123` |
 
-Use the following default keys to access the system:
-- **Username**: `admin`
-- **Password**: `password`
-- **Secret Code (Teacher)**: `Teacher123`
-- **Secret Code (Principal)**: `Principal123`
+---
 
-## Note on Security & Privacy
+## 📂 Project Architecture
 
-**Disclaimer**: This software is designed for educational/local monitoring purposes. It implements a keylogger and screen/camera capture. Ensure you have appropriate consent and authorization from the users before deploying this software.
+```text
+├── backend/
+│   ├── app.py                 # Main Flask Application
+│   ├── keystroke_logger.py     # Background Monitoring Thread
+│   ├── encryption.py          # Security & Cryptography Layer
+│   ├── visualization.py       # Analytics & Graph Generation
+│   └── screenshot.py          # Screen Capture Service
+├── frontend/
+│   ├── static/                # CSS, JS, and Brand Assets
+│   └── templates/             # HTML Dashboard Templates
+└── .gitignore                 # Secure File Exclusions
+```
+
+---
+
+## ⚖️ Legal Disclaimer & Ethical Use
+
+**IMPORTANT**: This software is intended for educational purposes, internal auditing, and authorized monitoring only. The use of keyloggers without explicit user consent is illegal in many jurisdictions. By using this software, you agree to comply with all local laws and ethical guidelines regarding privacy and data collection.
+
