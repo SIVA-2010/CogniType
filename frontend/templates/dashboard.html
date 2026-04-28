@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Keystroke Logger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Dashboard</h1>
+            <p>View and manage keystroke logs securely.</p>
+        </header>
+        <main>
+            <!-- Actions Section -->
+            <section class="actions">
+                <button onclick="showContent('logs')" class="btn">View Logs</button>
+                <button onclick="showContent('flagged_images')" class="btn">View Flagged Images</button>
+                <button onclick="showContent('screenshots')" class="btn">View Screenshots</button>
+                <button onclick="showContent('login_logs')" class="btn">View Login Logs</button>
+                <button onclick="showContent('visualization')" class="btn">Generate Visualization</button>
+            </section>
+
+            <!-- Dynamic Content Section -->
+            <section id="content" class="content">
+                <!-- Content will be dynamically loaded here -->
+            </section>
+
+            <!-- Flagged Images Section -->
+            <section id="flagged_images" class="content" style="display: none;">
+                <h2>Flagged Images</h2>
+                <div class="flagged-images-container">
+                    {% for image in flagged_images %}
+                    <div class="flagged-image">
+                        <img src="{{ url_for('static', filename='images/' + image.filename) }}" alt="Flagged Image">
+                        <p>Flagged Word: {{ image.flagged_word }}</p>
+                        <p class="flagged-message">Message: {{ image.flagged_message }}</p>
+                        <p>Timestamp: {{ image.timestamp }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Screenshots Section -->
+            <section id="screenshots" class="content" style="display: none;">
+                <h2>Screenshots</h2>
+                <div class="screenshots-container">
+                    {% for screenshot in screenshots %}
+                    <div class="screenshot">
+                        <img src="{{ url_for('static', filename='screenshots/' + screenshot.filename) }}" alt="Screenshot">
+                        <p>Timestamp: {{ screenshot.timestamp }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!-- Login Logs Section -->
+            <section id="login_logs" class="content" style="display: none;">
+                <h2>Login Logs</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Role</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for log in login_logs %}
+                        <tr>
+                            <td>{{ log.username }}</td>
+                            <td>{{ log.role }}</td>
+                            <td>{{ log.timestamp }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Visualization Section -->
+            <section id="visualization" class="content graph-container" style="display: none;">
+                <h2>Keystroke Analysis</h2>
+                <img id="graphImage" src="" alt="Keystroke Analysis Graph" style="max-width: 100%">
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Keystroke Logger. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // ... existing code ...
+            
+            // Hide login logs button if not principal
+            fetch("/check_role")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.role !== "Principal") {
+                        const loginLogsBtn = document.querySelector("button[onclick*='login_logs']");
+                        if (loginLogsBtn) loginLogsBtn.style.display = "none";
+                    }
+                });
+        });
+        </script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

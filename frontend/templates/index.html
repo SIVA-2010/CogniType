@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keystroke Logger</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Welcome to Keystroke Logger</h1>
+            <p>Monitor and secure your keystrokes with our advanced logging system.</p>
+        </header>
+        <main>
+            <section class="features">
+                <h2>Features</h2>
+                <ul>
+                    <li>🔒 Secure keystroke encryption</li>
+                    <li>📊 Real-time logging and monitoring</li>
+                    <li>🚀 Easy-to-use dashboard</li>
+                    <li>🔒 Enhances Cybersecurity Awareness</li>
+                    <li>🔑 Used in Parental,Educational institution</li>
+                </ul>
+            </section>
+            <section class="cta">
+                <h2>Get Started</h2>
+                <p>Log in to access the dashboard and view keystroke logs.</p>
+                <a href="/login" class="btn">Login</a>
+            </section>
+            <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        </main>
+    </div>
+</body>
+</html>
